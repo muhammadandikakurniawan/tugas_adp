@@ -1,0 +1,32 @@
+﻿@model IEnumerable<tugas1.Models.Product>
+
+@section content{
+    <h1 class="text-lg-center">Product List</h1>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Product Code</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Price</th>
+                <th scope="col">Product Stock</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int no = 1; }
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <th scope="row">@(no++)</th>
+                    <td>@item.ProductId</td>
+                    <td>@item.ProductName</td>
+                    <td>Rp.@item.ProductPrice</td>
+                    <td>@item.ProductStock</td>
+                    <td><a href="~/addcart/@item.ProductId" class="btn btn-primary">Add To Cart</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

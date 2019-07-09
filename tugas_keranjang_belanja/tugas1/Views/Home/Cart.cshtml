@@ -1,0 +1,53 @@
+﻿@model IEnumerable<tugas1.Models.Cart>
+
+@section content{
+
+    @if (TempData.Peek("message") != null)
+    {
+        <div class="container">
+            <div class="alert alert-@TempData["type"] alert-dismissible fade show" role="alert">
+                @TempData["message"]
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+
+    }
+    <h1 class="text-center"> Cart </h1>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Product Id</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Price/Unit</th>
+                <th scope="col">Sub Total</th>
+                <th scope="col">Quantity</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int no = 1; }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@(no++)</th>
+                    <td>@item.GetProduct().ProductId</td>
+                    <td>@item.GetProduct().ProductName</td>
+                    <td>Rp.@item.GetProduct().ProductPrice</td>
+                    <td>Rp.@item.SubTotal</td>
+                    <td>@item.Qty</td>
+                    <td>
+                        <a class="btn btn-danger" href="~/deletecart/@item.GetProduct().ProductId">Delete</a>
+                        <a class="btn btn-primary" href="~/updatecart/@item.GetProduct().ProductId">Edit</a>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="5"><h2>Total : @Model.Sum(m => m.SubTotal)</h2></td>
+            </tr>
+        </tbody>
+    </table>
+
+}
